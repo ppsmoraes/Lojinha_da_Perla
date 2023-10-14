@@ -1,8 +1,10 @@
-from dotenv import load_dotenv
-from os import getenv
-from sqlalchemy.engine import create_engine
+
+from dotenv import load_dotenv # pip install dotenv
+from sqlalchemy.engine import create_engine # pip instal sqlalchemy
 from sqlalchemy import text
-from pandas import read_sql
+from pandas import read_sql # pip install pandas
+
+from os import getenv # Python built-in
 
 def conectar(**kwargs):
     """
@@ -73,3 +75,23 @@ def leitura(sql_code, **kwargs):
     with conectar(**conexao).connect() as c:
         df = read_sql(text(sql_code), c, **kwargs)
     return df
+
+def change_password(username, password):
+    """
+    Função que aletera a senha
+    --------------------------
+    
+    Parameters
+    ----------
+    username : str
+        O login do usário
+
+    password : str
+        A nova senha a ser salva
+        
+    Returns
+    -------
+    None
+    """
+    
+    executar(f"UPDATE users SET password = '{password}' WHERE user = '{username}';")

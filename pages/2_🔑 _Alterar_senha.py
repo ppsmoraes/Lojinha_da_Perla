@@ -1,11 +1,8 @@
 # ---------------------------------------
 # Imports
 # ---------------------------------------
-import yaml # Native python module
-from yaml.loader import SafeLoader # Native python module
-
 import streamlit as st # pip install streamlit
-import streamlit_authenticator as stauth # pip install streamlit_authenticator
+import database as db # local import
 
 # ---------------------------------------
 # Fixed
@@ -21,13 +18,6 @@ hide_st_style = """
 st.markdown(hide_st_style, unsafe_allow_html=True)
 
 # ---------------------------------------
-# Login
-# ---------------------------------------
-# Load hashed passwords
-with open('config.yaml', 'r') as file:
-    config = yaml.load(file, Loader=SafeLoader)
-
-# ---------------------------------------
 # Page
 # ---------------------------------------
 if st.session_state['authentication_status']:
@@ -41,8 +31,10 @@ if st.session_state['authentication_status']:
     # --------------------
     try:
         if st.session_state['authenticator'].reset_password(st.session_state['username'], 'Alterar senha', 'main'):
-            with open('config.yaml', 'w') as file:
-                yaml.dump(config, file, default_flow_style=False)
-            st.success('Password modified successfully')
+            db.change_password(
+                st.session_state['username'],
+                st.session_state['authenticator'].credentials['usernames'][st.session_state['username']]['password']
+            )
+            st.success('Senha modificada com sucesso')
     except Exception as e:
         st.error(e)
