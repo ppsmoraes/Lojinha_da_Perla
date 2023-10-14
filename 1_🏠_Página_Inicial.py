@@ -68,10 +68,8 @@ elif st.session_state['authentication_status'] is None:
 elif st.session_state['authentication_status']:
 
     # Sidebar
-    # --------------------
     st.sidebar.write(f'Logado como {st.session_state["name"]}')
     st.session_state['authenticator'].logout('Sair', 'sidebar', key='Logout_button')
 
     # Main page
-    # --------------------
     st.title('Bem-vindo(a) a Lojinha da Perla')
