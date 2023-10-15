@@ -7,7 +7,7 @@ import database as db # local import
 # ---------------------------------------
 # Fixed
 # ---------------------------------------
-st.set_page_config(page_title='Lojinha da Perla', layout='wide', page_icon=':lipstick:')
+st.set_page_config(page_title='Lojinha da Perla - Alterar Senha', layout='centered', page_icon=':lipstick:')
 hide_st_style = """
     <style>
     #MainMenu {visibility: hidden;}
